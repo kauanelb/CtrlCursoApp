@@ -1,5 +1,9 @@
 package br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Aluno {
 
     //atributos
