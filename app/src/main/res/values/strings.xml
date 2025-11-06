@@ -4,6 +4,17 @@
     <string name="title_dashboard">Painel</string>
     <string name="title_notifications">Avisos</string>
     <string name="title_cad_aluno">Cad.Aluno</string>
+    <string name="nome_aluno">Nome Aluno:</string>
+    <string name="hint_nome">Jorge Amaral</string>
+    <string name="curso">Curso:</string>
+    <string name="hint_curso">Engenharia de Controle e Automação</string>
+    <string name="data_de_matr_cula">Data de Matrícula:</string>
+    <string name="_data_matricula">24/02/2025</string>
+    <string name="data_de_nascimento">Data de Nascimento:</string>
+    <string name="_data_nascimento">16/04/2005</string>
+    <string name="telefone">Telefone:</string>
+    <string name="hint_telefone">49988654213</string>
+    <string name="nome_curso">Curso</string>
 
     <string-array name="lista_cursos">
         <item>Engenharia de Controle e Automacao</item>
