@@ -22,4 +22,9 @@
         android:name="br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_cad_aluno"
+        android:name="br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.ui.aluno.CadAlunoFragment"
+        android:label="@string/title_cad_aluno"
+        tools:layout="@layout/fragment_cad_aluno" />
 </navigation>

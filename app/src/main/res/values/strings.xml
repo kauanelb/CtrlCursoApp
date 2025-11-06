@@ -3,7 +3,13 @@
     <string name="title_home">Início</string>
     <string name="title_dashboard">Painel</string>
     <string name="title_notifications">Avisos</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_cad_aluno">Cad.Aluno</string>
+
+    <string-array name="lista_cursos">
+        <item>Engenharia de Controle e Automacao</item>
+        <item>Tecnico Integrado Desenvolvimento de Sistemas</item>
+        <item>Tecnico Integrado Sistema de Energia</item>
+    </string-array>
+
+
 </resources>

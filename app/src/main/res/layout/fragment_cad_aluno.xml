@@ -84,6 +84,19 @@
                 android:ems="10"
                 android:hint="49988654213"
                 android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Curso" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:entries="@array/lista_cursos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 
