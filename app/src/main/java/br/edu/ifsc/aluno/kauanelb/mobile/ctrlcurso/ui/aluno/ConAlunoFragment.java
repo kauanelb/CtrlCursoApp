@@ -12,18 +12,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import java.util.ArrayList;
+
 import br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.R;
-import br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.ui.aluno.placeholder.PlaceholderContent;
+import br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.model.Aluno;
 
 /**
  * A fragment representing a list of Items.
  */
-public class ConAlunoFragment extends Fragment {
+public class ConAlunoFragment extends Fragment implements Response.ErrorListener, Response.Listener{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+
+    //Lista que vai armazenar os objetos que retornam do Web Service
+    private ArrayList<Aluno> alunos;
+    //Fila de requests da biblioteca Volley
+    private RequestQueue requestQueue;
+    //Objeto da biblioteca Volley que faz o request para o Web Service
+    private JsonArrayRequest jsonArrayReq;
+    //Objeto view que representa a tela utilizado em diversos metodos
+    private View view;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,19 +70,18 @@ public class ConAlunoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_con_aluno_list, container, false);
+        this.view = inflater.inflate(R.layout.fragment_con_aluno_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new AlunoRecyclerViewAdapter(PlaceholderContent.ITEMS));
-        }
-        return view;
+        return this.view;
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(Object response) {
+
     }
 }
