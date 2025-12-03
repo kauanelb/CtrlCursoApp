@@ -27,4 +27,9 @@
         android:name="br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.ui.aluno.CadAlunoFragment"
         android:label="@string/title_cad_aluno"
         tools:layout="@layout/fragment_cad_aluno" />
+    <fragment
+        android:id="@+id/navigation_con_aluno"
+        android:name="br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.ui.aluno.ConAlunoFragment"
+        android:label="@string/title_con_aluno"
+        tools:layout="@layout/fragment_con_aluno_list" />
 </navigation>

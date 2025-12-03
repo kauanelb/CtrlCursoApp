@@ -13,6 +13,7 @@
     <string name="telefone">Telefone:</string>
     <string name="hint_telefone">49988654213</string>
     <string name="nome_curso">Curso</string>
+    <string name="title_con_aluno">Con. Aluno</string>
 
     <string-array name="lista_cursos">
         <item>Engenharia de Controle e Automacao</item>
