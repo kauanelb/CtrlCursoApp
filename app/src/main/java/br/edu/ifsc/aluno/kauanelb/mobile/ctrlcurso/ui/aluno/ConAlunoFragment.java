@@ -12,10 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,7 +32,7 @@ import br.edu.ifsc.aluno.kauanelb.mobile.ctrlcurso.model.Aluno;
 /**
  * A fragment representing a list of Items.
  */
-public class ConAlunoFragment extends Fragment implements Response.ErrorListener, Response.Listener{
+public class ConAlunoFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray>{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -71,17 +78,80 @@ public class ConAlunoFragment extends Fragment implements Response.ErrorListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_con_aluno_list, container, false);
-
+        //instanciando a fila de requests - caso o objeto seja o view
+        this.requestQueue = Volley.newRequestQueue(view.getContext());
+        //inicializando a fila de requests do SO
+        this.requestQueue.start();
+        //
+        //requisição para o Rest Server tipo POST
+        try {
+            jsonArrayReq = new JsonArrayRequest(
+                    Request.Method.POST,
+                    "http://10.0.2.2/conAluno.php",
+                    new JSONArray("[{}]"),
+                    this, this);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //Inclui a request na fila
+        requestQueue.add(jsonArrayReq);
+        //
         return this.view;
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        //mostrar mensagem que veio do servidor
+        Snackbar mensagem = Snackbar.make(view,
+                "Ops! Houve um problema ao realizar a consulta: " +
+                        error.toString(), Snackbar.LENGTH_LONG);
+        mensagem.show();
     }
 
     @Override
-    public void onResponse(Object response) {
+    public void onResponse(JSONArray jsonArray) {
+        try {
+            //se a consulta nao veio vazia passar para array list
+            if (jsonArray != null) {
+                //objeto java
+                Aluno aluno = null;
+                //array list para receber a resposta
+                this.alunos = new ArrayList<Aluno>();
+                //preenchendo ArrayList com JSONArray recebido
+                for (int pos=0;pos<jsonArray.length();pos++) {
+                    JSONObject jo = jsonArray.getJSONObject(pos);
+                    aluno = new Aluno(jo);
+                    this.alunos.add(aluno);
+                }
+           /*
+           O codigo abaixo ja estava no metodo onCreateView().
+           Mas foi movido para cá, porque só pode ser
+            executado se o ArrayList não estiver vazio.
+            */
+                if (view instanceof RecyclerView) {
+                    Context context = view.getContext();
+                    RecyclerView recyclerView =
+                            (RecyclerView) view;
+                    if (mColumnCount <= 1) {
+                        recyclerView.setLayoutManager(
+                                new LinearLayoutManager(context));
 
+                    } else {
+                        recyclerView.setLayoutManager(
+                                new GridLayoutManager(context,
+                                        mColumnCount));
+                    }
+                    recyclerView.setAdapter(
+                            new AlunoRecyclerViewAdapter(this.alunos));
+                }
+            }else {
+                Snackbar mensagem = Snackbar.make(view,
+                        "A consulta não retornou nenhum registro!",
+                        Snackbar.LENGTH_LONG);
+                mensagem.show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
